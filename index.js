@@ -26,7 +26,7 @@ class Game extends Component {
     for (var i = 0; i < 6; i++) {
       let row = []
       for (var j = 0; j < 7; j++) {
-        row.push(null);
+        row.push('p');
       }
       board.push(row);
       row = [];
@@ -45,8 +45,9 @@ class Game extends Component {
       display: 'inline-block',
     };
 
-    // need to change mapping. must map paper pieces to each row
-    return this.state.board.map((piece, idx) => <Paper key={idx} style={style} zDepth={1} circle={true} />);
+    return this.state.board.map(row => (
+      row.map((col, idx) => <Paper key={idx} style={style} zDepth={1} circle={true} />)
+    ));
 
   }
 
