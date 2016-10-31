@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -23,37 +22,39 @@ class Game extends Component {
 
   createBoard() {
     let board = [];
-    for (var i = 0; i < 6; i++) {
-      let row = []
-      for (var j = 0; j < 7; j++) {
-        row.push('p');
+    for (var i = 0; i < 7; i++) {
+      let col = []
+      for (var j = 0; j < 6; j++) {
+        let idx = String(i).concat(String(j));
+        col.push({id: idx});
       }
-      board.push(row);
-      row = [];
+      board.push(col);
+      col = [];
     }
-    this.setState({board}, () => {
-      console.log(this.state.board);
-    })
   }
 
   displayBoard() {
     const style = {
-      height: 100,
-      width: 100,
-      margin: 20,
+      height: 25,
+      width: 25,
+      margin: 2,
       textAlign: 'center',
       display: 'inline-block',
     };
 
-    return this.state.board.map(row => (
-      row.map((col, idx) => <Paper key={idx} style={style} zDepth={1} circle={true} />)
-    ));
+    return this.state.board.map((row, idx )=> {
+      return (
+        <div key={idx} style={{'flexDirection':'row'}}>
+          { row.map(col => <Paper key={col.id} style={style} zDepth={1} circle={true} />) }
+        </div>
+      )
+    })
 
   }
 
   render () {
     return (
-      <div>
+      <div style={{'display':'flex', 'width': '200px', 'justifyContent': 'space-around'}}>
         {this.displayBoard()}
       </div>
     )
