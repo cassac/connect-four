@@ -23,14 +23,27 @@ class Game extends Component {
   createBoard() {
     let board = [];
     for (var i = 0; i < 7; i++) {
-      let col = []
+      let row = []
       for (var j = 0; j < 6; j++) {
         let idx = String(i).concat(String(j));
-        col.push({id: idx});
+        row.push({id: idx, owner: null});
       }
-      board.push(col);
-      col = [];
+      board.push(row);
+      row = [];
     }
+    this.setState({board});
+  }
+
+  turnHandler(e) {
+    const board = this.state.board;
+    for (var i = 0; i < 7; i++) {
+      for (var j = 0; j < 6; j++) {
+        if (board[i][j].id === e.target.id) {
+          board[i][j].owner = 'a';
+        }
+      }
+    }
+    this.setState({board});
   }
 
   displayBoard() {
@@ -45,7 +58,21 @@ class Game extends Component {
     return this.state.board.map((row, idx )=> {
       return (
         <div key={idx} style={{'flexDirection':'row'}}>
-          { row.map(col => <Paper key={col.id} style={style} zDepth={1} circle={true} />) }
+          { row.map(col => {
+            let color = null;
+            if (col.owner === 'a') color = 'red';
+            else if (col.owner === 'b') color = 'blue';
+            return (
+              <Paper 
+                key={col.id} 
+                id={col.id}
+                style={Object.assign({}, style, {'backgroundColor': color})} 
+                zDepth={2} 
+                circle={true} 
+                onClick={this.turnHandler.bind(this)}
+              /> 
+            )
+          })}
         </div>
       )
     })
