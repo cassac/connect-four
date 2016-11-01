@@ -8,7 +8,8 @@ class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      board: []
+      board: [],
+      turn: 'a'
     }
   }
 
@@ -37,15 +38,20 @@ class Game extends Component {
   turnHandler(e) {
     const board = this.state.board;
     const col = Number(String(e.target.id)[0]);
+    const turn = this.state.turn;
 
     for (var j = 5; j >= 0; j--) {
       if (!board[col][j].owner) {
-        board[col][j].owner = 'a';
+        board[col][j].owner = turn;
         break;
       }
     }
 
-    this.setState({board});
+    this.setState({
+      board,
+      turn: turn === 'a' ? 'b' : 'a',
+    });
+    
   }
 
   displayBoard() {
