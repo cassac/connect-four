@@ -36,13 +36,15 @@ class Game extends Component {
 
   turnHandler(e) {
     const board = this.state.board;
-    for (var i = 0; i < 7; i++) {
-      for (var j = 0; j < 6; j++) {
-        if (board[i][j].id === e.target.id) {
-          board[i][j].owner = 'a';
-        }
+    const col = Number(String(e.target.id)[0]);
+
+    for (var j = 5; j >= 0; j--) {
+      if (!board[col][j].owner) {
+        board[col][j].owner = 'a';
+        break;
       }
     }
+
     this.setState({board});
   }
 
