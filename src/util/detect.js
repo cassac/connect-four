@@ -1,4 +1,4 @@
-const detectHorizontalVerticalWin = (board, target) => {
+const horizontalVerticalWin = (board, target) => {
   
   var win = false;
 
@@ -120,7 +120,7 @@ const minorDiagonalWin = (board, target) => {
 }
 
 module.exports = {
-  detectHorizontalVerticalWin,
+  horizontalVerticalWin,
   majorDiagonalWin,
   minorDiagonalWin,
 }
