@@ -1,32 +1,32 @@
 const horizontalVerticalWin = (board, target) => {
-  
+
   var win = false;
 
   var recurse = (x, y, tally) => {
     if (!tally) tally = 0;
 
-    if (board[x][y] === target) {
-      board[x][y] = undefined;
+    if (board[x][y].owner === target) {
+      board[x][y].owner = null;
       tally += 1;
     }
 
-    if (board[x - 1][y] === target) {
-      board[x-1][y] = undefined;
+    if (board[x - 1] && board[x - 1][y].owner === target) {
+      board[x-1][y].owner = null;
       tally += recurse(x-1, y, tally);
     }
 
-    if (board[x + 1] && board[x + 1][y] === target) {
-      board[x+1][y] = undefined;
+    if (board[x + 1] && board[x + 1][y].owner === target) {
+      board[x+1][y].owner = null;
       tally += recurse(x+1, y, tally);
     }
 
-    if (board[x][y - 1] === target) {
-      board[x][y-1] = undefined;
+    if (board[x][y - 1].owner === target) {
+      board[x][y-1].owner = null;
       tally += recurse(x, y-1, tally);
     }
 
-    if (board[x][y + 1] === target) {
-      board[x][y+1] = undefined;
+    if (board[x][y + 1] && board[x][y + 1].owner === target) {
+      board[x][y+1].owner = null;
       tally += recurse(x, y+1, tally);
     }
 
@@ -35,7 +35,7 @@ const horizontalVerticalWin = (board, target) => {
 
   board.forEach((row, x) => {
     row.forEach((_, y) => {
-      if (board[x][y] === target) {
+      if (board[x][y].owner === target) {
         if(recurse(x, y) >= 4) {
           win = true;
         }
@@ -56,13 +56,13 @@ const majorDiagonalWin = (board, target) => {
   var recurse = (x, y, tally) => {
     if (!tally) tally = 0;
 
-    if (board[x][y] === target) {
-      board[x][y] = undefined;
+    if (board[x][y].owner === target) {
+      board[x][y].owner = null;
       tally += 1;
     }
 
-    if (board[x+1] && board[x+1][y+1] === target) {
-      board[x+1][y+1] = undefined;
+    if (board[x+1] && board[x+1][y+1].owner === target) {
+      board[x+1][y+1].owner = null;
       tally += recurse(x+1, y+1, tally);
     }
 
@@ -71,7 +71,7 @@ const majorDiagonalWin = (board, target) => {
 
   board.forEach((row, x) => {
     row.forEach((_, y) => {
-      if (board[x][y] === target) {
+      if (board[x][y].owner === target) {
         if(recurse(x, y) >= 4) {
           win = true;
         }
@@ -92,13 +92,13 @@ const minorDiagonalWin = (board, target) => {
   var recurse = (x, y, tally) => {
     if (!tally) tally = 0;
 
-    if (board[x][y] === target) {
-      board[x][y] = undefined;
+    if (board[x][y].owner === target) {
+      board[x][y].owner = null;
       tally += 1;
     }
 
-    if (board[x+1] && board[x+1][y-1] === target) {
-      board[x+1][y-1] = undefined;
+    if (board[x+1] && board[x+1][y-1].owner === target) {
+      board[x+1][y-1].owner = null;
       tally += recurse(x+1, y-1, tally);
     }
 
@@ -107,7 +107,7 @@ const minorDiagonalWin = (board, target) => {
 
   board.forEach((row, x) => {
     row.forEach((_, y) => {
-      if (board[x][y] === target) {
+      if (board[x][y].owner === target) {
         if(recurse(x, y) >= 4) {
           win = true;
         }
