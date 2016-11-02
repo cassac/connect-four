@@ -1,5 +1,7 @@
 const horizontalVerticalWin = (board, target) => {
 
+  board = JSON.parse(JSON.stringify(board));
+
   var win = false;
 
   var recurse = (x, y, tally) => {
@@ -50,7 +52,9 @@ const horizontalVerticalWin = (board, target) => {
 // major diagonal goes from top-left to bottom-right
 
 const majorDiagonalWin = (board, target) => {
-  
+
+  board = JSON.parse(JSON.stringify(board));
+
   var win = false;
 
   var recurse = (x, y, tally) => {
@@ -61,7 +65,7 @@ const majorDiagonalWin = (board, target) => {
       tally += 1;
     }
 
-    if (board[x+1] && board[x+1][y+1].owner === target) {
+    if (board[x+1] && board[x+1][y+1] && board[x+1][y+1].owner === target) {
       board[x+1][y+1].owner = null;
       tally += recurse(x+1, y+1, tally);
     }
@@ -86,7 +90,9 @@ const majorDiagonalWin = (board, target) => {
 // minor diagonal goes top-right to bottom-left
 
 const minorDiagonalWin = (board, target) => {
-  
+
+  board = JSON.parse(JSON.stringify(board));
+
   var win = false;
 
   var recurse = (x, y, tally) => {
