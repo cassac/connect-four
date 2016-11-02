@@ -48,14 +48,15 @@ class Game extends Component {
       }
     }
 
-    let option1 = horizontalVerticalWin(board, turn)
-    let option2 = majorDiagonalWin(board, turn)
-    let option3 = minorDiagonalWin(board, turn)
-
     this.setState({
       board,
       turn: turn === 'a' ? 'b' : 'a',
     });
+
+    const boardCopy = JSON.parse(JSON.stringify(board))
+    const option1 = horizontalVerticalWin(boardCopy, turn)
+    const option2 = majorDiagonalWin(boardCopy, turn)
+    const option3 = minorDiagonalWin(boardCopy, turn)
 
   }
 
