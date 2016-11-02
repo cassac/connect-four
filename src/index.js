@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import Paper from 'material-ui/Paper';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { verticalWin, horizontalWin, majorDiagonalWin, minorDiagonalWin } from './util/detect';
+import { detectWin, verticalWin, horizontalWin, majorDiagonalWin, minorDiagonalWin } from './util/detect';
 
 class Game extends Component {
   constructor(props) {
@@ -48,15 +48,15 @@ class Game extends Component {
       }
     }
 
-    const option1 = horizontalWin(board, turn);
-    const option2 = verticalWin(board, turn);
-    const option3 = majorDiagonalWin(board, turn);
-    const option4 = minorDiagonalWin(board, turn);
-
     this.setState({
       board,
       turn: turn === 'a' ? 'b' : 'a',
     });
+
+    if (detectWin(board, turn)) {
+      alert('Player "' + turn + '"" wins!');
+      this.createBoard();
+    }
 
   }
 

@@ -156,11 +156,18 @@ const minorDiagonalWin = (board, target) => {
 
 }
 
+const detectWin = (board, target) => {
+  if (verticalWin(board, target) ||
+      horizontalWin(board, target) ||
+      majorDiagonalWin(board, target) ||
+      minorDiagonalWin(board, target)) {
+      return true;
+  }
+  return false;
+}
+
 module.exports = {
-  verticalWin,
-  horizontalWin,
-  majorDiagonalWin,
-  minorDiagonalWin,
+  detectWin,
 }
 
 // Use to test
