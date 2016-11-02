@@ -51,12 +51,16 @@ class Game extends Component {
     this.setState({
       board,
       turn: turn === 'a' ? 'b' : 'a',
-    });
-
-    if (detectWin(board, turn)) {
-      alert('Player "' + turn + '"" wins!');
-      this.createBoard();
-    }
+    },
+      () => {
+        if (detectWin(board, turn)) {
+          setTimeout(()=> {
+            alert('Player "' + turn + '" wins!');
+            this.createBoard();
+          }, 200)
+        }
+      }
+    );
 
   }
 
