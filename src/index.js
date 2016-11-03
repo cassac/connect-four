@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import Paper from 'material-ui/Paper';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { detectWin, verticalWin, horizontalWin, majorDiagonalWin, minorDiagonalWin } from './util/detect';
+import { detectWin } from './util/detect';
 
 class Game extends Component {
   constructor(props) {
