@@ -7,11 +7,25 @@ import { detectWin } from './util/detect';
 
 class Game extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
+      socket: io(),
       board: [],
+      player: '',
       turn: 'a'
     }
+    this.state.socket.on('join', (data) => {
+      if (data === 1) this.state.player = 'a';
+      else if (data === 2) this.state.player = 'b';
+      else throw Error('Too many players in room.');
+    })
+    this.state.socket.on('turn', (data) => {
+      console.log('turn:', data)
+      // logic for delegating turns here
+      // set state back and fourth with terinary
+      // if users turn then can go otherwise wait
+    })
+
   }
 
   getChildContext() {
