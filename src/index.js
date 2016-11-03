@@ -15,15 +15,14 @@ class Game extends Component {
       turn: 'a'
     }
     this.state.socket.on('join', (data) => {
+      console.log(data)
       if (data === 1) this.state.player = 'a';
       else if (data === 2) this.state.player = 'b';
       else throw Error('Too many players in room.');
     })
     this.state.socket.on('turn', (data) => {
       console.log('turn:', data)
-      // logic for delegating turns here
-      // set state back and fourth with terinary
-      // if users turn then can go otherwise wait
+      this.turnDispatch(data)
     })
 
   }
@@ -54,6 +53,12 @@ class Game extends Component {
     const board = this.state.board;
     const col = Number(String(e.target.id)[0]);
     let turn = this.state.turn;
+    this.state.socket.emit('turn', {board, col, turn});
+    this.turnDispatch({board, col, turn})
+  }
+
+  turnDispatch(data) {
+    const { board, col, turn } = data;
 
     for (var j = 5; j >= 0; j--) {
       if (!board[col][j].owner) {
