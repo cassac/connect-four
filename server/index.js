@@ -1,5 +1,5 @@
-const express = require('express')
-
+const express = require('express');
+const path = require('path');
 const app = express();
 const http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -29,6 +29,10 @@ io.on('connection', (socket) => {
     delete players[socket.id]
   })
 
+})
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build/index.html'));
 })
 
 const PORT = 3000;
