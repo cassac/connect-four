@@ -12,7 +12,7 @@ const verticalWin = (board, target) => {
       tally += 1;
     }
 
-    if (board[x][y - 1] && board[x][y - 1].owner === target) {
+    if (board[x][y - 1] && board[x][y - 1] && board[x][y - 1].owner === target) {
       board[x][y-1].owner = null;
       tally += recurse(x, y-1, tally);
     }
