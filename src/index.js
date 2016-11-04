@@ -50,9 +50,10 @@ class Game extends Component {
   }
 
   turnHandler(e) {
+    let turn = this.state.turn;
+    if (turn !== this.state.player) return;
     const board = this.state.board;
     const col = Number(String(e.target.id)[0]);
-    let turn = this.state.turn;
     this.state.socket.emit('turn', {board, col, turn});
     this.turnDispatch({board, col, turn})
   }
