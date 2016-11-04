@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
-import Game from './containers/App';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import App from './components/App';
+import Game from './containers/Game';
 
 render(
   <Router history={browserHistory}>
-    <Route path='/' component={Game} />
+    <Route path='/' component={App} >
+      <IndexRoute component={Game} />
+    </Route>
   </Router>, 
   document.getElementById('app')
 );
