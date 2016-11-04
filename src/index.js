@@ -15,13 +15,9 @@ class Game extends Component {
       turn: 'a'
     }
     this.state.socket.on('join', (data) => {
-      console.log(data)
-      if (data === 1) this.state.player = 'a';
-      else if (data === 2) this.state.player = 'b';
-      else throw Error('Too many players in room.');
+      this.state.player = data;
     })
     this.state.socket.on('turn', (data) => {
-      console.log('turn:', data)
       this.turnDispatch(data)
     })
 
