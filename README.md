@@ -1,3 +1,3 @@
 # Connect Four Game
 
-Built with React and Material UI
+Built with React, SocketIO and Material UI
