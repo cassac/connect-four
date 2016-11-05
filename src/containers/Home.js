@@ -39,7 +39,14 @@ export default class Home extends Component {
     return (
       <div>
         <h3>Join a Game:</h3>
-        <p>List active games here...</p>
+        <br />
+        { this.state.pendingGames.map(room => {
+          return (
+            <div>
+              <Link to={`/game/${room}`}>{ room }</Link>
+            </div>
+          )
+        })}
         <h3>Create Game</h3>
         <input 
           type='text' 
@@ -50,14 +57,6 @@ export default class Home extends Component {
           type='submit' 
           value='Create Game' 
         />
-        <br />
-        { this.state.pendingGames.map(room => {
-          return (
-            <div>
-              <Link to={`/game/${room}`}>{ room }</Link>
-            </div>
-          )
-        })}
       </div>
     )
   }
