@@ -16,10 +16,10 @@ io.on('connection', (socket) => {
 
   if(!players[room]) players[room] = {};
 
-  var amount = Object.keys(players[room]).length;
+  var assignedPlayers = Object.keys(players[room]).map(key => players[room][key]);
 
-  if (!amount) players[room][socket.id] = 'a';
-  else if (amount===1) players[room][socket.id] = 'b';
+  if (assignedPlayers.indexOf('a') === -1) players[room][socket.id] = 'a';
+  else if (assignedPlayers.indexOf('b') === -1) players[room][socket.id] = 'b';
   else players[room][socket.id] = 'c'; // spectator
 
   socket.join(room);
@@ -30,8 +30,16 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('turn', data)
   });
 
+  socket.on('pending games', (data) => {
+    // get rooms with only one player
+    var rooms = Object.keys(players).filter(room => {
+      if (room.length && Object.keys(room).length) return room;
+    })
+    socket.emit('pending games', rooms)
+  })
+
   socket.on('disconnect', () => {
-    delete players[room][socket.id]
+    delete players[room][socket.id];
   })
 
 })
