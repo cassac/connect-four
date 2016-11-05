@@ -33,13 +33,15 @@ io.on('connection', (socket) => {
   socket.on('pending games', (data) => {
     // get rooms with only one player
     var rooms = Object.keys(players).filter(room => {
-      if (room.length && Object.keys(room).length) return room;
+      if (room.length && Object.keys(players[room]).length === 1) return room;
     })
     socket.emit('pending games', rooms)
   })
 
   socket.on('disconnect', () => {
-    delete players[room][socket.id];
+    // remove users from room or delete room if empty
+    if (!Object.keys(players[room]).length) delete players[room];
+    else delete players[room][socket.id];
   })
 
 })
