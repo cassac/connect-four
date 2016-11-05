@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      room: ''
+      room: '',
+      pendingGames: [],
+      socket: io()
     }
+    this.state.socket.on('pending games', (pendingGames) => {
+      this.setState({pendingGames});
+    })
+  }
+
+  componentWillMount() {
+    this.state.socket.emit('pending games')
   }
 
   goToGameRoom() {
     browserHistory.push('/game/'.concat(this.state.room));
   }
-
 
   render() {
     const styles = {
@@ -41,6 +50,14 @@ export default class Home extends Component {
           type='submit' 
           value='Create Game' 
         />
+        <br />
+        { this.state.pendingGames.map(room => {
+          return (
+            <div>
+              <Link to={`/game/${room}`}>{ room }</Link>
+            </div>
+          )
+        })}
       </div>
     )
   }
