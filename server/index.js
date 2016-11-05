@@ -10,23 +10,28 @@ app.use('socket.io', express.static('node_modules/socket.io'));
 var players = {}
 
 io.on('connection', (socket) => {
+  
+  var parts = socket.request.headers.referer.split('/');
+  var room = parts[parts.length - 1];
 
-  var amount = Object.keys(players).length;
+  if(!players[room]) players[room] = {};
 
-  if (!amount) players[socket.id] = 'a';
-  else players[socket.id] = 'b';
+  var amount = Object.keys(players[room]).length;
 
-  // eventually `gameroom` will be dynamic room names
-  socket.join('gameroom');
+  if (!amount) players[room][socket.id] = 'a';
+  else if (amount===1) players[room][socket.id] = 'b';
+  else players[room][socket.id] = 'c'; // spectator
 
-  socket.emit('join', players[socket.id]);
+  socket.join(room);
+
+  socket.emit('join', players[room][socket.id]);
 
   socket.on('turn', (data) => {
     socket.broadcast.emit('turn', data)
   });
 
   socket.on('disconnect', () => {
-    delete players[socket.id]
+    delete players[room][socket.id]
   })
 
 })
