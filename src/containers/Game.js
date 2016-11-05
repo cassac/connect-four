@@ -63,10 +63,8 @@ class Game extends Component {
     },
       () => {
         if (detectWin(board, turn)) {
-          setTimeout(()=> {
-            alert('Player "' + turn + '" wins!');
-            this.createBoard();
-          }, 200)
+          alert('Player "' + turn + '" wins!');
+          this.createBoard();
         }
       }
     );
