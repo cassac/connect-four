@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { detectWin } from '../util/detect';
 
 class Game extends Component {
@@ -20,10 +18,6 @@ class Game extends Component {
       this.turnDispatch(data)
     })
 
-  }
-
-  getChildContext() {
-    return { muiTheme: getMuiTheme(baseTheme) };
   }
 
   componentWillMount() {
@@ -121,9 +115,5 @@ class Game extends Component {
   }
 
 }
-
-Game.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
-};
 
 export default Game;
