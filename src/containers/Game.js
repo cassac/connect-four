@@ -108,7 +108,7 @@ class Game extends Component {
   render () {
     return (
       <div>
-        <div style={{'position': 'relative', 'left': '20%'}}>
+        <div style={{'position': 'relative', 'left': '26%'}}>
           <div style={{'display':'flex', 'width': '50%', 'justifyContent': 'space-around'}}>
             {this.displayBoard()}
           </div>
