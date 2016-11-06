@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import { detectWin } from '../util/detect';
+import Footer from '../components/Footer';
 
 class Game extends Component {
   constructor(props) {
@@ -106,8 +107,11 @@ class Game extends Component {
 
   render () {
     return (
-      <div style={{'display':'flex', 'width': '200px', 'justifyContent': 'space-around'}}>
-        {this.displayBoard()}
+      <div>
+        <div style={{'display':'flex', 'width': '200px', 'justifyContent': 'space-around'}}>
+          {this.displayBoard()}
+        </div>
+        <Footer />
       </div>
     )
   }
