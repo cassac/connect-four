@@ -5,11 +5,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
 
 class App extends Component {
+  componentWillMount() {
+    injectTapEventPlugin();
+  }
   getChildContext() {
     return { muiTheme: getMuiTheme(baseTheme) };
   }
   render() {
-    injectTapEventPlugin();
     return (
       <div>
         <Header />
