@@ -40,9 +40,9 @@ export default class Home extends Component {
       <div>
         <h3>Join a Game:</h3>
         <br />
-        { this.state.pendingGames.map(room => {
+        { this.state.pendingGames.map((room, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <Link to={`/game/${room}`}>{ room }</Link>
             </div>
           )
