@@ -111,7 +111,9 @@ class Game extends Component {
         <div style={{'display':'flex', 'width': '200px', 'justifyContent': 'space-around'}}>
           {this.displayBoard()}
         </div>
-        <Footer />
+        <Footer 
+          turn={this.state.turn} 
+        />
       </div>
     )
   }
