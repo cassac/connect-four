@@ -74,11 +74,11 @@ class Game extends Component {
 
   displayBoard() {
     const style = {
-      height: 25,
-      width: 25,
-      margin: 2,
+      height: '4em',
+      width: '4em',
+      margin: '1em',
       textAlign: 'center',
-      display: 'inline-block',
+      display: 'block',
     };
 
     return this.state.board.map((row, idx )=> {
@@ -108,8 +108,10 @@ class Game extends Component {
   render () {
     return (
       <div>
-        <div style={{'display':'flex', 'width': '200px', 'justifyContent': 'space-around'}}>
-          {this.displayBoard()}
+        <div style={{'position': 'relative', 'left': '20%'}}>
+          <div style={{'display':'flex', 'width': '50%', 'justifyContent': 'space-around'}}>
+            {this.displayBoard()}
+          </div>
         </div>
         <Footer 
           turn={this.state.turn} 
