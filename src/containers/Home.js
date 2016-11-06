@@ -5,6 +5,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
+import JoinGame from '../components/JoinGame';
 
 export default class Home extends Component {
   constructor(props) {
@@ -38,15 +39,9 @@ export default class Home extends Component {
     };
     return (
       <div>
-        <h3>Join a Game:</h3>
-        <br />
-        { this.state.pendingGames.map((room, idx) => {
-          return (
-            <div key={idx}>
-              <Link to={`/game/${room}`}>{ room }</Link>
-            </div>
-          )
-        })}
+        <JoinGame 
+          pendingGames={this.state.pendingGames} 
+        />
         <h3>Create Game</h3>
         <input 
           type='text' 
