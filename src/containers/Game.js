@@ -113,6 +113,7 @@ class Game extends Component {
         </div>
         <Footer 
           turn={this.state.turn} 
+          player={this.state.player}
         />
       </div>
     )
