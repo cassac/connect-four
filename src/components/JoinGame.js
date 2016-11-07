@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
 const JoinGame = ({pendingGames}) => {
   
@@ -7,7 +9,7 @@ const JoinGame = ({pendingGames}) => {
 
   return (
     <div>
-      <h3>Join a Game:</h3>
+      <h3>Join a Game</h3>
       { pendingGames.map((room, idx) => {
         return (
           <div key={idx}>
@@ -15,6 +17,10 @@ const JoinGame = ({pendingGames}) => {
           </div>
         )
       })}
+      <br />
+      <Divider 
+        inset={true}
+      />
     </div>
   )
 }

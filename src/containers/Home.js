@@ -39,15 +39,10 @@ export default class Home extends Component {
 
   render() {
     const styles = {
-      root: {
-        display: 'flex',
-        'flexDirection': 'row',
-        'flexWrap': 'wrap',
-        'justifyContent': 'center'
-      },
+      'textAlign': 'center',
     };
     return (
-      <div>
+      <div style={styles}>
         <JoinGame 
           pendingGames={this.state.pendingGames} 
         />
