@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
 import JoinGame from '../components/JoinGame';
+import CreateGame from '../components/CreateGame';
 
 export default class Home extends Component {
   constructor(props) {
@@ -32,6 +33,10 @@ export default class Home extends Component {
     }, 200)
   }
 
+  changeHandler(e) {
+    this.setState({room: e.target.value})
+  }
+
   render() {
     const styles = {
       root: {
@@ -46,15 +51,9 @@ export default class Home extends Component {
         <JoinGame 
           pendingGames={this.state.pendingGames} 
         />
-        <h3>Create Game</h3>
-        <input 
-          type='text' 
-          onChange={(e) => this.setState({room: e.target.value})}
-        />
-        <input 
-          onClick={this.goToGameRoom.bind(this)}
-          type='submit' 
-          value='Create Game' 
+        <CreateGame 
+          goToGameRoom={this.goToGameRoom.bind(this)}
+          changeHandler={this.changeHandler.bind(this)}
         />
       </div>
     )
