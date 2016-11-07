@@ -26,6 +26,10 @@ export default class Home extends Component {
 
   goToGameRoom() {
     browserHistory.push('/game/'.concat(this.state.room));
+    setTimeout(()=> {
+    this.state.socket.emit('create game');
+      
+    }, 200)
   }
 
   render() {
