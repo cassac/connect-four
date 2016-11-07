@@ -26,6 +26,10 @@ class Game extends Component {
     this.initiateBoard();
   }
 
+  componentWillUnmount() {
+    this.state.socket.emit('leave game')
+  }
+
   initiateBoard() {
     this.setState({ board: createBoard() });
   }
