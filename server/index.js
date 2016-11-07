@@ -9,12 +9,30 @@ app.use('socket.io', express.static('node_modules/socket.io'));
 
 var players = {}
 
+const getRoomsWithOnePlayer = () => {
+  return Object.keys(players).filter(room => {
+    if (room.length && Object.keys(players[room]).length === 1) {
+      return room;
+    }
+  })
+}
+
+const cleanUpRooms = (socket, room) => {
+  // remove users from room or delete room if empty
+  if (!Object.keys(players[room]).length) delete players[room];
+  else delete players[room][socket.id];
+}
+
 io.on('connection', (socket) => {
   
   var parts = socket.request.headers.referer.split('/');
   var room = parts[parts.length - 1];
 
-  if(!players[room]) players[room] = {};
+  if(!players[room]) {
+    players[room] = {};
+    // console.log(getRoomsWithOnePlayer())
+    socket.emit('pending games', getRoomsWithOnePlayer())
+  }
 
   var assignedPlayers = Object.keys(players[room]).map(key => players[room][key]);
 
@@ -30,18 +48,16 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('turn', data)
   });
 
+  socket.on('leave game', () => {
+    cleanUpRooms(socket, room);
+  })
+
   socket.on('pending games', (data) => {
-    // get rooms with only one player
-    var rooms = Object.keys(players).filter(room => {
-      if (room.length && Object.keys(players[room]).length === 1) return room;
-    })
-    socket.emit('pending games', rooms)
+    socket.emit('pending games', getRoomsWithOnePlayer())
   })
 
   socket.on('disconnect', () => {
-    // remove users from room or delete room if empty
-    if (!Object.keys(players[room]).length) delete players[room];
-    else delete players[room][socket.id];
+    cleanUpRooms(socket, room);
   })
 
 })
