@@ -1,16 +1,30 @@
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
+const style = {
+  button: {
+    margin: 12
+  },
+  div: {
+    marginTop: '3em'
+  }
+};
 
 const createGame = ({goToGameRoom, changeHandler}) => (
-  <div>
-    <h3>Create Game</h3>
-    <input 
-      type='text' 
-      onChange={ changeHandler }
+  <div style={style.div}>
+    <h3>Create a Game</h3>
+    <TextField
+      name='roomName'
+      placeholder='Room Name'
+      onChange={changeHandler}
     />
-    <input 
-      onClick={ goToGameRoom }
-      type='submit' 
-      value='Create Game' 
+    <RaisedButton 
+      onClick={goToGameRoom}
+      label="Go!" 
+      style={style.button} 
+      backgroundColor='#00BCD4'
+      labelColor='#FFF'
     />
   </div>
 )
