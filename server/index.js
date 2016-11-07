@@ -28,11 +28,7 @@ io.on('connection', (socket) => {
   var parts = socket.request.headers.referer.split('/');
   var room = parts[parts.length - 1];
 
-  if(!players[room]) {
-    players[room] = {};
-    // console.log(getRoomsWithOnePlayer())
-    socket.emit('pending games', getRoomsWithOnePlayer())
-  }
+  if (!players[room]) players[room] = {};
 
   var assignedPlayers = Object.keys(players[room]).map(key => players[room][key]);
 
@@ -44,12 +40,17 @@ io.on('connection', (socket) => {
 
   socket.emit('join', players[room][socket.id]);
 
+  socket.on('create game', () => {
+    socket.broadcast.emit('pending games', getRoomsWithOnePlayer())
+  })
+
   socket.on('turn', (data) => {
     socket.broadcast.emit('turn', data)
   });
 
   socket.on('leave game', () => {
     cleanUpRooms(socket, room);
+    socket.broadcast.emit('pending games', getRoomsWithOnePlayer())
   })
 
   socket.on('pending games', (data) => {
