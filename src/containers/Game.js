@@ -14,7 +14,7 @@ class Game extends Component {
       turn: 'a'
     }
     this.state.socket.on('join', (data) => {
-      this.state.player = data;
+      this.setState({player: data})
     })
     this.state.socket.on('turn', (data) => {
       this.turnDispatch(data)
