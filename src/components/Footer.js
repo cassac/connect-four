@@ -6,15 +6,10 @@ import Paper from 'material-ui/Paper';
 
 const Footer = ({turn, player}) => {
 
-  const redOrBlue = () => {
-    if (!player) return '';
-    else return player === 'a' ? 'RED' : 'BLUE';
-  }
-
-  const userPlayer = <FontIcon className="material-icons">{ redOrBlue() }</FontIcon>;
+  const userPlayer = <FontIcon className="material-icons">{ player.toUpperCase() }</FontIcon>;
   const redsTurn = <FontIcon className="material-icons">RED'S</FontIcon>;
   const bluesTurn = <FontIcon className="material-icons">BLUE'S</FontIcon>;
-  const whoseTurn = () => turn === 'a' ? 1 : 2;
+  const whoseTurn = () => turn === 'red' ? 1 : 2;
 
   return (
     <Paper zDepth={1} style={{'position': 'absolute', 'bottom': '0px', 'width': '100%'}}>

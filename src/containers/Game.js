@@ -11,7 +11,7 @@ class Game extends Component {
       socket: io(),
       board: [],
       player: '',
-      turn: 'a'
+      turn: 'red'
     }
     this.state.socket.on('join', (data) => {
       this.setState({player: data})
@@ -55,11 +55,11 @@ class Game extends Component {
 
     this.setState({
       board,
-      turn: turn === 'a' ? 'b' : 'a',
+      turn: turn === 'red' ? 'blue' : 'red',
     },
       () => {
         if (detectWin(board, turn)) {
-          alert('Player "' + turn + '" wins!');
+          alert('Player "' + turn.toUpperCase() + '" wins!');
           this.initiateBoard();
         }
       }
@@ -80,9 +80,7 @@ class Game extends Component {
       return (
         <div key={idx} style={{'flexDirection':'row'}}>
           { row.map(col => {
-            let color = null;
-            if (col.owner === 'a') color = 'red';
-            else if (col.owner === 'b') color = 'blue';
+            let color = col.owner;
             return (
               <Paper 
                 key={col.id} 

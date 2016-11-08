@@ -32,9 +32,9 @@ io.on('connection', (socket) => {
 
   var assignedPlayers = Object.keys(players[room]).map(key => players[room][key]);
 
-  if (assignedPlayers.indexOf('a') === -1) players[room][socket.id] = 'a';
-  else if (assignedPlayers.indexOf('b') === -1) players[room][socket.id] = 'b';
-  else players[room][socket.id] = 'c'; // spectator
+  if (assignedPlayers.indexOf('red') === -1) players[room][socket.id] = 'red';
+  else if (assignedPlayers.indexOf('blue') === -1) players[room][socket.id] = 'blue';
+  else players[room][socket.id] = 'spectator';
 
   socket.join(room);
 
